@@ -26,4 +26,6 @@ Press 'ESC' to quit.
 To run the game, simply navigate to the directory where you've saved
 the game and enter command,
 
-python Memory.py
+$ python Memory.py
+
+TIP: must have Python installed to play
