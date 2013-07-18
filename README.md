@@ -1,7 +1,7 @@
 Memory
 ======
 
-A simple card game
+A simple card game.
 
 
 Directions
@@ -28,4 +28,4 @@ the game and enter command,
 
 $ python Memory.py
 
-TIP: must have Python installed to play
+TIP: must have Python installed to play.
