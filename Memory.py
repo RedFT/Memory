@@ -352,5 +352,6 @@ class Game():
             pygame.display.update()
             self.fps_clock.tick(FRAME_RATE)
 
-game = Game()
-game.mainLoop()
+if __name__ == "__main__":
+    game = Game()
+    game.mainLoop()
