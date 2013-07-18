@@ -215,13 +215,14 @@ class Deck():
             card_list.append(card)
         random.shuffle(card_list)
         self.card_list.empty()
-        for card in card_list:
-            self.card_list.add(card)
 
-        for card in enumerate(self.card_list):
+        for card in enumerate(card_list):
             card[1].shuffling = True
             card[1].set_end_dest(copy.copy(CARD_POINTS[card[0]]))
             card[1].set_back()
+
+        for card in card_list:
+            self.card_list.add(card)
 
     def update(self):
         self.cards_up = sum(True for card in self.card_list if card.front_up)
