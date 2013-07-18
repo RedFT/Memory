@@ -17,6 +17,8 @@ Controls
 
 Press 'spacebar' to shuffle cards.
 
+Click on cards to flip them.
+
 Press 'p' to restart.
 
 Press 'ESC' to quit.
