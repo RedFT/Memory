@@ -294,9 +294,6 @@ class Deck():
         if self.cards_up == 2:
             self.timer += self.clock.get_time()
 
-            # random.shuffle() WORKS
-            # BETTER WITH LISTS
-            # SO UNPACK GROUP INTO A LIST
             for card in self.card_list:
                 card.blocked = True
             up_cards = []
