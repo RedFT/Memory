@@ -23,7 +23,7 @@ for y in range(30, WIN_SIZE[1] - 20, BOARD_SIZE[1]/4):
         CARD_POINTS.append([x, y])
 
 FRAME_RATE = 120
-GAME_NAME = 'MEMORY v0.1'
+GAME_NAME = 'MEMORY v0.2'
 
 # PATH TO EACH PICTURES
 CARD_FRONT = os.path.join('.', 'data', 'images', 'card_front.png')
@@ -37,8 +37,14 @@ CLIP_DIAMONDS = (13, 0, 12, 15)
 CLIP_HEARTS = (0, 15, 13, 15)
 CLIP_SPADES = (13, 15, 12, 15)
 
+# PATH TO MUSIC AND SFX
+BG_MUSIC = os.path.join('.', 'data', 'sounds', 'LearningToWalk.ogg')
+SFX_REMOVE = os.path.join('.', 'data', 'sounds', 'RemoveCards.ogg')
+SFX_Throw = os.path.join('.', 'data', 'sounds', 'ThrowCard.ogg')
+
 # PATH TO FONT USED FOR GAME
 FONT_DIR = os.path.join ('.', 'data', 'font', 'Comfortaa-Regular.ttf')
+
 
 class Card(pygame.sprite.Sprite):
 
@@ -57,6 +63,9 @@ class Card(pygame.sprite.Sprite):
     def __init__(self, font, suit='clubs', clip=CLIP_CLUBS, pos=[WIN_SIZE[0]/2, WIN_SIZE[1]/2], number='2'):
 
         super(Card, self).__init__()
+
+        self.sfx_throw = pygame.mixer.Sound(SFX_Throw)
+        self.sfx_throw.set_volume(0.1)
 
         self.suit = suit
         self.number = number
@@ -115,6 +124,7 @@ class Card(pygame.sprite.Sprite):
         self.pos[1] -= self.gather_speed[1]
 
         if not (self.gather_speed[0] or self.gather_speed[1]):
+            self.sfx_throw.play()
             self.done_shuffling = True
             self.done_throwing = False
             self.shuffling = False
@@ -162,12 +172,15 @@ class Deck():
 
     cards_up = 0
 
+    timer = 0
+
     def __init__(self, font, clock):
+
+        self.sfx_remove = pygame.mixer.Sound(SFX_REMOVE)
 
         self.card_list = pygame.sprite.Group()
 
         self.clock = clock
-        self.timer = 0
 
         self.font = font
 
@@ -216,6 +229,8 @@ class Deck():
         random.shuffle(card_list)
         self.card_list.empty()
 
+        random.shuffle(CARD_POINTS)
+
         for card in enumerate(card_list):
             card[1].shuffling = True
             card[1].set_end_dest(copy.copy(CARD_POINTS[card[0]]))
@@ -239,6 +254,7 @@ class Deck():
                 for card in self.card_list:
                     card.blocked = False
                 if up_cards[0].number == up_cards[1].number:
+                    self.sfx_remove.play()
                     up_cards[0].kill()
                     up_cards[1].kill()
 
@@ -273,6 +289,12 @@ class Game():
 
         # SETUP GROUPS
         self.all_sprites_list = pygame.sprite.Group()
+
+        # CREATE SOUND
+        # Create BG music and play it
+        self.bg_music = pygame.mixer.Sound(BG_MUSIC)
+        self.bg_music.set_volume(0.5)
+        self.bg_music.play(-1, 0)
 
     def level_init(self):
 
