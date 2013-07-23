@@ -4,6 +4,12 @@ Memory
 A simple card game.
 
 
+Requirements
+=====
+Python
+Pygame
+
+
 Directions
 ======
 
@@ -30,5 +36,3 @@ To run the game, simply navigate to the directory where you've saved
 the game and enter command:
 
 $ python Memory.py
-
-TIP: must have Python and Pygame installed to play.
