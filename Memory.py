@@ -316,11 +316,11 @@ class Deck():
 
 
 class Game():
-    '''
+    """
     This is the main game class that
     handles player interaction, game
     logic and display
-    '''
+    """
 
     def __init__(self):
 
