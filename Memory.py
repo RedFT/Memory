@@ -87,8 +87,8 @@ class Card(pygame.sprite.Sprite):
 
         # MAKE CARDS MOVE AND SHAKE AT DIFFERENT SPEEDS
         self.elapsed = random.randint(0, 200) / 100.
-        self.sinspeedx = random.randint(500, 750) / 1000.
-        self.sinspeedy = random.randint(1000, 1500) / 1000.
+        self.sinspeedx = random.randint(50, 75) / 100.
+        self.sinspeedy = random.randint(100, 150) / 100.
 
         # LOAD IMAGES FOR CARDS
         self.card_front = pygame.image.load(CARD_FRONT).convert_alpha()
@@ -325,7 +325,9 @@ class Game():
     def __init__(self):
 
         # INIT AND SETUP PYGAME
-        pygame.init()
+        pygame.display.init()
+        pygame.font.init()
+        pygame.mixer.init()
         self.surface = pygame.display.set_mode(WIN_SIZE)
         pygame.display.set_caption(GAME_NAME)
 
