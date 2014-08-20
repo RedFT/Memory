@@ -1,3 +1,8 @@
+#!/usr/bin/python2.7
+
+## TODO:    Doxygen style documentation
+##          A quick run-through with my upgraded skills :)
+
 import pygame
 import sys
 import os
@@ -5,7 +10,7 @@ import random
 import copy
 from math import sin
 
-# DEFINE CONSTANTS
+### DEFINE SOME CONSTANTS ###
 BLACK = (1,21,28)
 PURPLE = (119,11,48)
 RED = (181,47,42)
@@ -43,6 +48,7 @@ SFX_THROW = os.path.join('.', 'data', 'sounds', 'ThrowCard.ogg')
 FONT_DIR = os.path.join ('.', 'data', 'font', 'Comfortaa-Regular.ttf')
 
 
+### DEFINE SOME CLASSES ###
 class Card(pygame.sprite.Sprite):
     """
     This class is used to create
@@ -153,8 +159,6 @@ class Card(pygame.sprite.Sprite):
             self.shuffling = False
 
     def throw(self):
-
-
         self.throw_speed = self.get_needed_speed(self.end_dest, 10, 10)
 
         self.pos[0] -= self.throw_speed[0]
@@ -173,7 +177,6 @@ class Card(pygame.sprite.Sprite):
         return [vx, vy]
 
     def update(self):
-
         # SHUFFLE AND THROW IF CONDITIONS ARE TRUE
         if self.shuffling:
             self.shuffle()
@@ -187,6 +190,7 @@ class Card(pygame.sprite.Sprite):
             self.pos[1] = (.125 * sin(self.elapsed) * self.sinspeedy) + self.pos[1]
 
         self.rect.x, self.rect.y = self.pos[0], self.pos[1]
+
 
 class Deck():
     """
@@ -203,7 +207,6 @@ class Deck():
     cards_in_center = []
 
     def __init__(self, font, clock):
-
         self.sfx_remove = pygame.mixer.Sound(SFX_REMOVE)
 
         self.card_list = pygame.sprite.Group()
@@ -323,7 +326,6 @@ class Game():
     """
 
     def __init__(self):
-
         # INIT AND SETUP PYGAME
         pygame.display.init()
         pygame.font.init()
@@ -352,8 +354,6 @@ class Game():
                 CARD_POINTS.append([x, y])
 
     def level_init(self):
-
-        # EMPTY ALL GROUPS
         self.all_sprites_list.empty()
 
         # CREATE ALL NECESSARY GAME OBJECTS
@@ -364,7 +364,6 @@ class Game():
             self.all_sprites_list.add(card)
 
     def handle_events(self):
-
         # HANDLE KEYBOARD EVENTS
         for event in pygame.event.get():
 
@@ -372,45 +371,28 @@ class Game():
                 pygame.quit()
                 sys.exit()
 
-            # IF CLICKED
             elif event.type == pygame.MOUSEBUTTONDOWN:
-
-                # IF LEFT CLICKED
+                # IF LEFT MOUSE BUTTON CLICKED
                 if event.button == 1:
-
-                    # FLIP CARD
                     self.deck.flip(pygame.mouse.get_pos())
 
-            # IF KEY PRESSED
+            # IF KEY PRESSED DOWN
             elif event.type == pygame.KEYDOWN:
-
-                # IF 'ESCAPE' WAS PRESSED
                 if event.key == pygame.K_ESCAPE:
-
-                    # CLOSE PYGAME AND sys.exit() FOR GOOD MEASURE
                     pygame.quit()
                     sys.exit()
 
-                # IF 'SPACE' WAS PRESSED
                 elif event.key == pygame.K_SPACE:
-
-                    # SHUFFLE CARDS
                     self.deck.shuffle()
 
-                # IF 'P' WAS PRESSED, RESET GAME
                 elif event.key == pygame.K_p:
                     self.level_init()
 
     def update(self):
-        """
-        Update whatever needs to be updated
-        """
-
         self.deck.update()
         self.all_sprites_list.update()
 
     def collisions(self):
-
         pass
 
     def clear_screen(self):
@@ -422,11 +404,9 @@ class Game():
         self.surface.blit(self.wooden_top, (0,0))
 
     def draw(self):
-
         self.all_sprites_list.draw(self.surface)
 
     def mainLoop(self):
-
         self.level_init()
 
         while True:
@@ -446,6 +426,7 @@ class Game():
 
             pygame.display.update()
             self.fps_clock.tick(FRAME_RATE)
+
 
 if __name__ == "__main__":
     game = Game()
