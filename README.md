@@ -3,6 +3,8 @@ Memory
 
 A simple card game.
 
+![Alt text](/data/Memory.gif?raw=true "Short Demo")
+
 
 Requirements
 =====
